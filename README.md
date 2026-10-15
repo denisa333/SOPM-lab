@@ -2,17 +2,23 @@
 
 Ideea proiectului: InternHub
 O platformă web pentru internship-uri destinate studenților, unde aceștia pot căuta oportunități de practică și pot aplica, iar companiile pot publica oferte.
+
 Persoana 1 – Pagina principală și ofertele
+
 •	Pagina Home
 •	Lista internship-urilor
 •	Căutare și filtre după domeniu și oraș
 •	Pagina cu detaliile unui internship
+
 Persoana 2 – Contul studentului
+
 •	Înregistrare și autentificare
 •	Profilul studentului
 •	Aplicarea la internship-uri
 •	Vizualizarea aplicațiilor trimise
+
 Persoana 3 – Partea companiilor
+
 •	Profilul companiei
 •	Publicarea ofertelor de internship
 •	Editarea și ștergerea ofertelor
