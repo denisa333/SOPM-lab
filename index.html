@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InternHub - Internship-uri pentru studenți</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h2>InternHub</h2>
+        <nav>
+            <a href="index.html">Acasă</a>
+            <a href="#oferte">Internship-uri</a>
+            <a href="#despre">Despre noi</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Primul pas spre cariera ta începe aici.</h1>
+            <p>Descoperă internship-uri și oportunități de practică pentru studenți.</p>
+
+            <form id="search-form">
+                <input
+                    type="text"
+                    id="search"
+                    placeholder="Caută un domeniu sau un post..."
+                >
+                <button type="submit">Caută</button>
+            </form>
+        </section>
+
+        <section id="oferte" class="jobs">
+            <h2>Internship-uri recomandate</h2>
+
+            <div class="job-list">
+                <article class="job-card">
+                    <h3>Software Developer Intern</h3>
+                    <p>Preh Romania</p>
+                    <p>Brașov · Hybrid</p>
+                    <button type="button">Vezi detalii</button>
+                </article>
+
+                <article class="job-card">
+                    <h3>Telecommunications Intern</h3>
+                    <p>Tech Company</p>
+                    <p>București · On-site</p>
+                    <button type="button">Vezi detalii</button>
+                </article>
+
+                <article class="job-card">
+                    <h3>Junior Network Intern</h3>
+                    <p>IT Solutions</p>
+                    <p>Remote · Part-time</p>
+                    <button type="button">Vezi detalii</button>
+                </article>
+            </div>
+            <p id="no-results" hidden>Nu am găsit oferte potrivite.</p>
+        </section>
+
+        <section id="despre" class="about">
+            <h2>Despre InternHub</h2>
+            <p>Ajutăm studenții să descopere oportunități de practică
+               și să facă primii pași în carieră.</p>
+        </section>
+    </main>
+
+    <footer id="contact">
+        <p>© 2026 InternHub · Platformă pentru studenți</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
