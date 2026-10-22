@@ -1,0 +1,261 @@
+:root {
+  --primary-blue: #0284c7;
+  --light-blue: #e0f2fe;
+  --accent-green: #10b981;
+  --light-green: #d1fae5;
+  --dark-text: #0f172a;
+  --muted-text: #475569;
+  --card-bg: #ffffff;
+  --bg-color: #f8fafc;
+  --border-color: #cbd5e1;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--dark-text);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header & Nav */
+header {
+  background-color: #ffffff;
+  border-bottom: 2px solid var(--light-blue);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.navbar {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-blue);
+  text-decoration: none;
+}
+
+.logo span {
+  color: var(--accent-green);
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  font-weight: 600;
+  color: var(--muted-text);
+  transition: color 0.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--primary-blue);
+}
+
+/* Containere */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  flex: 1;
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(135deg, var(--light-blue) 0%, var(--light-green) 100%);
+  border-radius: 16px;
+  padding: 3.5rem 2rem;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.hero h1 {
+  font-size: 2.3rem;
+  color: var(--dark-text);
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  color: var(--muted-text);
+  max-width: 650px;
+  margin: 0 auto 1.5rem;
+}
+
+/* Butoane */
+.btn {
+  display: inline-block;
+  background-color: var(--primary-blue);
+  color: white;
+  padding: 0.75rem 1.4rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn:hover {
+  background-color: #0369a1;
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background-color: var(--accent-green);
+}
+
+.btn-secondary:hover {
+  background-color: #059669;
+}
+
+/* Filtre & Căutare */
+.filter-box {
+  background-color: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border: 1px solid var(--border-color);
+}
+
+.filter-box input,
+.filter-box select {
+  flex: 1;
+  min-width: 180px;
+  padding: 0.65rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.filter-box input:focus,
+.filter-box select:focus {
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+}
+
+/* Grilă Carduri Internship */
+.internships-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.internship-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.internship-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+  border-color: var(--primary-blue);
+}
+
+.card-tags {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0.8rem 0;
+  flex-wrap: wrap;
+}
+
+.tag {
+  font-size: 0.8rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 9999px;
+  font-weight: 600;
+}
+
+.tag-domain {
+  background-color: var(--light-blue);
+  color: var(--primary-blue);
+}
+
+.tag-city {
+  background-color: var(--light-green);
+  color: #065f46;
+}
+
+.card-company {
+  font-weight: 600;
+  color: var(--muted-text);
+  font-size: 0.95rem;
+}
+
+/* Pagina Detalii */
+.detail-card {
+  background-color: var(--card-bg);
+  border-radius: 14px;
+  border: 1px solid var(--border-color);
+  padding: 2.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.detail-header {
+  border-bottom: 2px solid var(--light-blue);
+  padding-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.detail-header h2 {
+  font-size: 1.8rem;
+  color: var(--dark-text);
+}
+
+.detail-meta {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 0.75rem;
+  color: var(--muted-text);
+  font-weight: 500;
+}
+
+.requirements-list {
+  margin: 1rem 0 2rem 1.5rem;
+  color: var(--muted-text);
+}
+
+.requirements-list li {
+  margin-bottom: 0.5rem;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  background-color: #ffffff;
+  border-top: 1px solid var(--border-color);
+  color: var(--muted-text);
+  margin-top: auto;
+}

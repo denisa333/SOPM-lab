@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InternHub - Toate Ofertele</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <nav class="navbar">
+      <a href="index.html" class="logo">Intern<span>Hub</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Acasă</a></li>
+        <li><a href="internships.html" class="active">Oportunități de practică</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h2 style="margin-bottom: 1.5rem;">Toate Oportunitățile de Practică</h2>
+
+    <!-- Zona de filtrare și căutare -->
+    <div class="filter-box">
+      <input type="text" id="search-input" placeholder="Caută după titlu sau companie...">
+      
+      <select id="domain-filter">
+        <option value="">Toate domeniile</option>
+        <option value="IT">IT</option>
+        <option value="Data Science">Data Science</option>
+        <option value="Design">Design</option>
+        <option value="Marketing">Marketing</option>
+      </select>
+
+      <select id="city-filter">
+        <option value="">Toate orașele</option>
+        <option value="București">București</option>
+        <option value="Cluj-Napoca">Cluj-Napoca</option>
+        <option value="Timișoara">Timișoara</option>
+        <option value="Iași">Iași</option>
+      </select>
+    </div>
+
+    <!-- Containerul ofertelor -->
+    <div id="all-internships" class="internships-grid">
+      <!-- Generat dinamic prin JS -->
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 InternHub. Proiect SOPM.</p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
