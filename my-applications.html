@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InternHub - Aplicațiile Mele</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="student-style.css">
+</head>
+<body>
+
+  <header>
+    <nav class="navbar">
+      <a href="index.html" class="logo">Intern<span>Hub</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Acasă</a></li>
+        <li><a href="internships.html">Oportunități de practică</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h2 style="margin-bottom: 0.5rem;">Aplicațiile Mele</h2>
+    <p style="color: var(--muted-text); margin-bottom: 1.5rem;">Urmărește statusul aplicațiilor trimise către companii.</p>
+
+    <div class="applications-card">
+      <div id="applications-list">
+        <!-- Generat dinamic prin JS -->
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 InternHub. Proiect SOPM.</p>
+  </footer>
+
+  <script src="student-auth.js"></script>
+  <script>
+    function renderApplications() {
+      const student = getCurrentStudent();
+      const container = document.getElementById('applications-list');
+
+      if (!student) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 2rem;">
+            <h3>Trebuie să te autentifici!</h3>
+            <p style="color: var(--muted-text); margin: 1rem 0;">Accesează contul pentru a-ți vedea aplicațiile.</p>
+
+            <a href="login.html" class="btn">Merg la Logare</a>
+          </div>
+        `;
+        return;
+      }
+
+      const apps = getApplications();
+
+      if (apps.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 2.5rem;">
+            <p style="color: var(--muted-text); font-size: 1.1rem; margin-bottom: 1rem;">Nu ai trimis nicio aplicație până acum.</p>
+            <a href="internships.html" class="btn btn-secondary">Explorează ofertele disponibile</a>
+          </div>
+        `;
+        return;
+      }
+
+      let html = `
+        <table class="app-table">
+          <thead>
+            <tr>
+              <th>Internship / Pozitie</th>
+              <th>Companie</th>
+              <th>Data Aplicării</th>
+              <th>Status</th>
+              <th>Scrisoare de intenție</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      apps.forEach(app => {
+        let statusBadge = '';
+        if (app.status === 'Acceptat') {
+          statusBadge = '<span class="status-badge status-accepted">✓ Acceptat</span>';
+        } else if (app.status === 'Respins') {
+          statusBadge = '<span class="status-badge status-rejected">✕ Respins</span>';
+        } else {
+          statusBadge = '<span class="status-badge status-pending">⏳ În evaluare</span>';
+        }
+
+        html += `
+          <tr>
+            <td><strong>${app.internshipTitle}</strong></td>
+            <td>${app.company}</td>
+            <td>${app.appliedAt}</td>
+            <td>${statusBadge}</td>
+            <td style="color: var(--muted-text); font-size: 0.88rem;">${app.coverLetter ? app.coverLetter.substring(0, 60) + '...' : '<i>Fără scrisoare</i>'}</td>
+          </tr>
+        `;
+      });
+
+      html += `
+          </tbody>
+        </table>
+      `;
+
+      container.innerHTML = html;
+    }
+
+    document.addEventListener('DOMContentLoaded', renderApplications);
+  </script>
+</body>
+</html>

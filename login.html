@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InternHub - Autentificare Student</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="student-style.css">
+</head>
+<body>
+
+  <header>
+    <nav class="navbar">
+      <a href="index.html" class="logo">Intern<span>Hub</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Acasă</a></li>
+        <li><a href="internships.html">Oportunități de practică</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="auth-card">
+      <div class="auth-tabs">
+        <button id="tab-login" class="auth-tab-btn active" onclick="switchAuthTab('login')">Autentificare</button>
+        <button id="tab-register" class="auth-tab-btn" onclick="switchAuthTab('register')">Înregistrare Cont Nou</button>
+      </div>
+
+      <!-- Formular Login -->
+      <form id="login-form" class="auth-form">
+        <h2>Autentificare Student</h2>
+        <p class="form-subtitle">Intră în contul tău de student pentru a aplica la internship-uri.</p>
+
+        <div class="form-group">
+          <label for="login-email">Email instituțional/personal</label>
+          <input type="email" id="login-email" required placeholder="student@universitate.ro">
+        </div>
+
+        <div class="form-group">
+          <label for="login-password">Parolă</label>
+          <input type="password" id="login-password" required placeholder="••••••••">
+        </div>
+
+        <button type="submit" class="btn" style="width: 100%; margin-top: 1rem;">Intră în cont</button>
+      </form>
+
+      <!-- Formular Inregistrare -->
+      <form id="register-form" class="auth-form hidden">
+        <h2>Înregistrare Student</h2>
+        <p class="form-subtitle">Creează-ți contul pentru a explora și aplica la internship-uri.</p>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="reg-firstname">Nume</label>
+            <input type="text" id="reg-firstname" required placeholder="Popescu">
+          </div>
+          <div class="form-group">
+            <label for="reg-lastname">Prenume</label>
+            <input type="text" id="reg-lastname" required placeholder="Alexandru">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="reg-email">Email instituțional/personal</label>
+          <input type="email" id="reg-email" required placeholder="alexandru@student.ro">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="reg-university">Universitatea</label>
+            <input type="text" id="reg-university" required placeholder="ex: UniTBv, UPB, UBB">
+          </div>
+          <div class="form-group">
+            <label for="reg-faculty">Facultatea</label>
+            <input type="text" id="reg-faculty" required placeholder="ex: Matematică și Informatică">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="reg-study-year">Anul de studiu</label>
+            <select id="reg-study-year" required>
+              <option value="Anul I">Anul I</option>
+              <option value="Anul II">Anul II</option>
+              <option value="Anul III" selected>Anul III</option>
+              <option value="Anul IV">Anul IV</option>
+              <option value="Master I">Master I</option>
+              <option value="Master II">Master II</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="reg-phone">Telefon</label>
+            <input type="tel" id="reg-phone" placeholder="07xx xxx xxx">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="reg-password">Parolă</label>
+            <input type="password" id="reg-password" required placeholder="••••••••">
+          </div>
+          <div class="form-group">
+            <label for="reg-password-confirm">Confirmă parola</label>
+            <input type="password" id="reg-password-confirm" required placeholder="••••••••">
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-secondary" style="width: 100%; margin-top: 1rem;">Creează contul de student</button>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 InternHub. Proiect SOPM.</p>
+  </footer>
+
+  <script src="student-auth.js"></script>
+  <script>
+    function switchAuthTab(tab) {
+      const loginForm = document.getElementById('login-form');
+      const regForm = document.getElementById('register-form');
+      const tabLogin = document.getElementById('tab-login');
+      const tabReg = document.getElementById('tab-register');
+
+      if (tab === 'login') {
+        loginForm.classList.remove('hidden');
+        regForm.classList.add('hidden');
+        tabLogin.classList.add('active');
+        tabReg.classList.remove('active');
+      } else {
+        loginForm.classList.add('hidden');
+        regForm.classList.remove('hidden');
+        tabLogin.classList.remove('active');
+        tabReg.classList.add('active');
+      }
+    }
+
+    // Gestionare submit Login
+    document.getElementById('login-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value;
+      
+      let student = getCurrentStudent();
+      if (!student) {
+        student = {
+          id: Date.now(),
+          firstName: "Student",
+          lastName: "Utilizator",
+          email: email,
+          phone: "07xxxxxxxx",
+          university: "Universitatea Transilvania",
+          faculty: "Informatică Aplicată",
+          studyYear: "Anul III",
+          bio: "Pasionat de tehnologie.",
+          skills: ["HTML", "CSS", "JavaScript"],
+          cvName: "CV_Student.pdf"
+        };
+      } else {
+        student.email = email;
+      }
+
+      setCurrentStudent(student);
+      alert('Autentificare reuşită!');
+      window.location.href = 'profile.html';
+    });
+
+    // Gestionare submit Înregistrare
+    document.getElementById('register-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const pass = document.getElementById('reg-password').value;
+      const passConf = document.getElementById('reg-password-confirm').value;
+
+      if (pass !== passConf) {
+        alert('Parolele nu se potrivesc!');
+        return;
+      }
+
+      const newStudent = {
+        id: Date.now(),
+        firstName: document.getElementById('reg-firstname').value,
+        lastName: document.getElementById('reg-lastname').value,
+        email: document.getElementById('reg-email').value,
+        phone: document.getElementById('reg-phone').value,
+        university: document.getElementById('reg-university').value,
+        faculty: document.getElementById('reg-faculty').value,
+        studyYear: document.getElementById('reg-study-year').value,
+        bio: "Editează profilul pentru a adăuga o descriere.",
+        skills: ["JavaScript", "HTML", "CSS"],
+        cvName: "Nu este încărcat niciun CV."
+      };
+
+      setCurrentStudent(newStudent);
+      alert('Contul a fost creat cu succes!');
+      window.location.href = 'profile.html';
+    });
+  </script>
+</body>
+</html>

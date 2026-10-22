@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InternHub - Profilul Meu</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="student-style.css">
+</head>
+<body>
+
+  <header>
+    <nav class="navbar">
+      <a href="index.html" class="logo">Intern<span>Hub</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Acasă</a></li>
+        <li><a href="internships.html">Oportunități de practică</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div id="profile-card-container">
+      <!-- Generat dinamic prin JS -->
+    </div>
+  </main>
+
+  <!-- Modal Editare Profil -->
+  <div id="edit-profile-modal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Editează Profilul</h3>
+        <button class="close-modal" onclick="closeEditModal()">&times;</button>
+      </div>
+      <form id="edit-profile-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="edit-firstname">Nume</label>
+            <input type="text" id="edit-firstname" required>
+          </div>
+          <div class="form-group">
+            <label for="edit-lastname">Prenume</label>
+            <input type="text" id="edit-lastname" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="edit-phone">Număr Telefon</label>
+            <input type="tel" id="edit-phone" required>
+          </div>
+          <div class="form-group">
+            <label for="edit-study-year">An de studiu</label>
+            <select id="edit-study-year">
+              <option value="Anul I">Anul I</option>
+              <option value="Anul II">Anul II</option>
+              <option value="Anul III">Anul III</option>
+              <option value="Anul IV">Anul IV</option>
+              <option value="Master I">Master I</option>
+              <option value="Master II">Master II</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="edit-university">Universitate</label>
+          <input type="text" id="edit-university" required>
+        </div>
+
+        <div class="form-group">
+          <label for="edit-faculty">Facultate</label>
+          <input type="text" id="edit-faculty" required>
+        </div>
+
+        <div class="form-group">
+          <label for="edit-bio">Descriere / Despre mine</label>
+          <textarea id="edit-bio" rows="4" placeholder="Scrie câteva cuvinte despre tine, pasiuni și obiective profesionale..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="edit-skills">Abilități / Skill-uri (separate prin virgulă)</label>
+          <input type="text" id="edit-skills" placeholder="ex: Java, Git, HTML, Python, Comunicare">
+        </div>
+
+        <div class="form-group">
+          <label for="edit-cv">Încarcă un CV nou (PDF)</label>
+          <input type="file" id="edit-cv" accept=".pdf,.doc,.docx">
+        </div>
+
+        <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1.5rem;">
+          <button type="button" class="btn btn-secondary" onclick="closeEditModal()" style="background-color: #94a3b8;">Anulează</button>
+          <button type="submit" class="btn">Salvează Modificările</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 InternHub. Proiect SOPM.</p>
+  </footer>
+
+  <script src="student-auth.js"></script>
+  <script>
+    function renderProfile() {
+      const student = getCurrentStudent();
+      const container = document.getElementById('profile-card-container');
+
+      if (!student) {
+        container.innerHTML = `
+          <div class="detail-card" style="text-align: center;">
+            <h2>Nu ești autentificat!</h2>
+            <p style="color: var(--muted-text); margin: 1rem 0;">Trebuie să te autentifici pentru a vizualiza profilul ta de student.</p>
+            <a href="login.html" class="btn">Merg la Logare</a>
+          </div>
+        `;
+        return;
+      }
+
+      const skillsHTML = student.skills && student.skills.length > 0
+        ? student.skills.map(s => `<span class="skill-badge">${s.trim()}</span>`).join('')
+        : '<span style="color: var(--muted-text);">Nu au fost adăugate skill-uri.</span>';
+
+      container.innerHTML = `
+        <div class="detail-card">
+          <div class="profile-header-box">
+            <div class="profile-avatar">${student.firstName.charAt(0)}${student.lastName.charAt(0)}</div>
+            <div style="flex: 1;">
+              <h2>${student.firstName} ${student.lastName}</h2>
+              <p style="color: var(--muted-text); font-weight: 500;">🎓 ${student.university} &bull; ${student.faculty}</p>
+              <p style="color: var(--primary-blue); font-weight: 600; font-size: 0.95rem; margin-top: 0.25rem;">${student.studyYear}</p>
+            </div>
+            <button class="btn btn-secondary" onclick="openEditModal()">✏️ Editează Profilul</button>
+          </div>
+
+          <div class="profile-section">
+            <h3>Date de contact</h3>
+            <div class="profile-info-grid">
+              <div><strong>Email:</strong> ${student.email}</div>
+              <div><strong>Telefon:</strong> ${student.phone || 'Nespecificat'}</div>
+            </div>
+          </div>
+
+          <div class="profile-section">
+            <h3>Despre mine</h3>
+            <p style="color: var(--muted-text);">${student.bio || 'Nu a fost adăugată o descriere.'}</p>
+          </div>
+
+          <div class="profile-section">
+            <h3>Abilități & Competente</h3>
+            <div class="skills-wrapper">${skillsHTML}</div>
+          </div>
+
+          <div class="profile-section">
+            <h3>Curriculum Vitae (CV)</h3>
+            <div class="cv-box">
+              <span>📄 <strong>${student.cvName || 'CV_Incarcat.pdf'}</strong></span>
+              <a href="#" onclick="alert('Descărcare CV simulată cu succes!')" style="color: var(--primary-blue); font-weight: 600; text-decoration: none;">Vizualizează/Descarcă CV</a>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function openEditModal() {
+      const student = getCurrentStudent();
+      if (!student) return;
+
+      document.getElementById('edit-firstname').value = student.firstName;
+      document.getElementById('edit-lastname').value = student.lastName;
+      document.getElementById('edit-phone').value = student.phone || '';
+      document.getElementById('edit-university').value = student.university || '';
+      document.getElementById('edit-faculty').value = student.faculty || '';
+      document.getElementById('edit-study-year').value = student.studyYear || 'Anul III';
+      document.getElementById('edit-bio').value = student.bio || '';
+      document.getElementById('edit-skills').value = student.skills ? student.skills.join(', ') : '';
+
+      document.getElementById('edit-profile-modal').classList.remove('hidden');
+    }
+
+    function closeEditModal() {
+      document.getElementById('edit-profile-modal').classList.add('hidden');
+    }
+
+    document.getElementById('edit-profile-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const student = getCurrentStudent();
+
+      student.firstName = document.getElementById('edit-firstname').value;
+      student.lastName = document.getElementById('edit-lastname').value;
+      student.phone = document.getElementById('edit-phone').value;
+      student.university = document.getElementById('edit-university').value;
+      student.faculty = document.getElementById('edit-faculty').value;
+      student.studyYear = document.getElementById('edit-study-year').value;
+      student.bio = document.getElementById('edit-bio').value;
+
+      const skillsStr = document.getElementById('edit-skills').value;
+      student.skills = skillsStr ? skillsStr.split(',').map(s => s.trim()).filter(Boolean) : [];
+
+      const fileInput = document.getElementById('edit-cv');
+      if (fileInput.files.length > 0) {
+        student.cvName = fileInput.files[0].name;
+      }
+
+      setCurrentStudent(student);
+      closeEditModal();
+      renderProfile();
+      updateNavbar();
+      alert('Profilul a fost actualizat!');
+    });
+
+    document.addEventListener('DOMContentLoaded', renderProfile);
+  </script>
+</body>
+</html>
