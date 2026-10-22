@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InternHub - Profil companie</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="company.css">
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <a href="index.html" class="logo">Intern<span>Hub</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Acasă</a></li>
+        <li><a href="internships.html">Oportunități de practică</a></li>
+        <li><a href="company-profile.html" class="active">Profil companie</a></li>
+        <li><a href="company-dashboard.html">Panou companie</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container company-page narrow">
+    <section class="company-heading">
+      <div><p class="eyebrow">ZONA COMPANIEI</p><h1>Profilul companiei</h1><p class="muted">Completează informațiile pe care studenții le pot vedea.</p></div>
+    </section>
+    <section class="company-panel">
+      <form id="company-profile-form" class="company-form">
+        <label>Numele companiei *<input id="company-name" required maxlength="120" placeholder="Ex. TechNova Solutions"></label>
+        <label>Descrierea companiei *<textarea id="company-description" required rows="5" maxlength="2000" placeholder="Cu ce se ocupă compania și ce oportunități oferă studenților?"></textarea></label>
+        <div class="form-row">
+          <label>Oraș<input id="company-city" maxlength="80" placeholder="Ex. Brașov"></label>
+          <label>Website<input id="company-website" type="url" placeholder="https://exemplu.ro"></label>
+        </div>
+        <label>Email de contact<input id="company-email" type="email" placeholder="contact@companie.ro"></label>
+        <div class="form-actions"><button class="btn btn-secondary" type="submit">Salvează profilul</button><span id="profile-message" class="form-message" role="status"></span></div>
+      </form>
+    </section>
+    <p class="demo-note">Notă: această versiune demonstrativă salvează datele în browserul curent (localStorage). Nu este încă un sistem cu conturi și autentificare reale.</p>
+  </main>
+  <footer><p>&copy; 2026 InternHub. Proiect SOPM.</p></footer>
+  <script src="company.js"></script>
+</body>
+</html>

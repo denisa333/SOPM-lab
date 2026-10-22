@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InternHub - Panou companie</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="company.css">
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <a href="index.html" class="logo">Intern<span>Hub</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Acasă</a></li>
+        <li><a href="internships.html">Oportunități de practică</a></li>
+        <li><a href="company-profile.html">Profil companie</a></li>
+        <li><a href="company-dashboard.html" class="active">Panou companie</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container company-page">
+    <section class="company-heading">
+      <div>
+        <p class="eyebrow">ZONA COMPANIEI</p>
+        <h1>Panou de administrare</h1>
+        <p class="muted">Publică și gestionează ofertele de internship și consultă candidații.</p>
+      </div>
+      <a class="btn" href="company-profile.html">Editează profilul</a>
+    </section>
+
+    <section class="company-stats" aria-label="Statistici">
+      <article class="stat-card"><span>Oferte publicate</span><strong id="stat-offers">0</strong></article>
+      <article class="stat-card"><span>Candidați</span><strong id="stat-candidates">0</strong></article>
+      <article class="stat-card"><span>Oferte active</span><strong id="stat-active">0</strong></article>
+    </section>
+
+    <section class="company-panel">
+      <div class="section-heading">
+        <div><h2 id="form-title">Publică o ofertă nouă</h2><p class="muted">Câmpurile marcate cu * sunt obligatorii.</p></div>
+      </div>
+      <form id="internship-form" class="company-form">
+        <input type="hidden" id="edit-id">
+        <label>Titlul internship-ului *<input id="offer-title" required maxlength="100" placeholder="Ex. Frontend Developer Intern"></label>
+        <div class="form-row">
+          <label>Domeniu *
+            <select id="offer-domain" required>
+              <option value="">Alege domeniul</option><option>IT</option><option>Data Science</option><option>Design</option><option>Marketing</option><option>Finanțe</option><option>Resurse umane</option><option>Inginerie</option><option>Alt domeniu</option>
+            </select>
+          </label>
+          <label>Oraș *<input id="offer-city" required maxlength="80" placeholder="Ex. Brașov"></label>
+        </div>
+        <div class="form-row">
+          <label>Mod de lucru *
+            <select id="offer-type" required><option value="">Alege</option><option>Remote</option><option>Hibrid</option><option>On-site</option></select>
+          </label>
+          <label>Salariu / bursă<input id="offer-salary" maxlength="60" placeholder="Ex. 2500 RON sau Negociabil"></label>
+        </div>
+        <label>Descrierea internship-ului *<textarea id="offer-description" required rows="4" maxlength="3000" placeholder="Descrie responsabilitățile și ce va învăța studentul."></textarea></label>
+        <label>Cerințe (separate prin virgulă)<textarea id="offer-requirements" rows="3" placeholder="Ex. HTML/CSS, lucru în echipă, limba engleză"></textarea></label>
+        <label>Termen-limită pentru aplicare<input id="offer-deadline" type="date"></label>
+        <div class="form-actions">
+          <button class="btn btn-secondary" type="submit" id="save-offer">Publică oferta</button>
+          <button class="btn btn-outline" type="button" id="cancel-edit" hidden>Anulează editarea</button>
+          <span id="form-message" class="form-message" role="status"></span>
+        </div>
+      </form>
+    </section>
+
+    <section class="company-panel">
+      <div class="section-heading"><div><h2>Ofertele companiei</h2><p class="muted">Poți modifica sau șterge ofertele din această listă.</p></div></div>
+      <div id="company-offers" class="company-offers"></div>
+    </section>
+
+    <section class="company-panel">
+      <div class="section-heading"><div><h2>Candidați</h2><p class="muted">Aplicațiile salvate de partea studentului vor apărea aici.</p></div></div>
+      <div id="company-candidates"></div>
+    </section>
+  </main>
+
+  <footer><p>&copy; 2026 InternHub. Proiect SOPM.</p></footer>
+  <script src="data.js"></script>
+  <script src="company.js"></script>
+</body>
+</html>
