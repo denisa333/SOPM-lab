@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InternHub - Panou Companie</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="student-style.css">
+</head>
+<body>
+
+  <header>
+    <nav class="navbar">
+      <a href="index.html" class="logo">Intern<span>Hub</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Acasă</a></li>
+        <li><a href="internships.html">Oportunități de practică</a></li>
+        <li><a href="company-dashboard.html" class="active">Panou Companie</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+      <div>
+        <h2>Panou Administrare Recrutare</h2>
+        <p style="color: var(--muted-text);">Adaugă internship-uri și gestionează candidații înscriși.</p>
+      </div>
+      <button class="btn btn-secondary" onclick="document.getElementById('new-job-modal').classList.remove('hidden')">+ Adaugă Internship Nou</button>
+    </div>
+
+    <section class="applications-card" style="margin-bottom: 2.5rem;">
+      <h3 style="margin-bottom: 1rem;">Candidaturi Primite de la Studenți</h3>
+      <div id="company-applications-table"></div>
+    </section>
+  </main>
+
+  <!-- Modal Adăugare Job -->
+  <div id="new-job-modal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Publică un Internship Nou</h3>
+        <button class="close-modal" onclick="document.getElementById('new-job-modal').classList.add('hidden')">&times;</button>
+      </div>
+      <form id="add-job-form">
+        <div class="form-group">
+          <label>Titlu Poziție</label>
+          <input type="text" id="job-title" required placeholder="ex: Cloud Support Intern">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nume Companie</label>
+            <input type="text" id="job-company" required placeholder="ex: SoftDev SRL">
+          </div>
+          <div class="form-group">
+            <label>Domeniu</label>
+            <select id="job-domain">
+              <option value="IT">IT</option>
+              <option value="Data Science">Data Science</option>
+              <option value="Design">Design</option>
+              <option value="Marketing">Marketing</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Oraș</label>
+            <select id="job-city">
+              <option value="București">București</option>
+              <option value="Cluj-Napoca">Cluj-Napoca</option>
+              <option value="Timișoara">Timișoara</option>
+              <option value="Iași">Iași</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Salariu Lunar Estimativ</label>
+            <input type="text" id="job-salary" required placeholder="ex: 3.200 RON / lună">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Descriere Pozitie</label>
+          <textarea id="job-desc" rows="3" required placeholder="Detalii despre responsabilități..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Cerințe (separate prin virgulă)</label>
+          <input type="text" id="job-req" required placeholder="ex: Cunoștințe Linux, Scripting Bash, Comunicare">
+        </div>
+        <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1.5rem;">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('new-job-modal').classList.add('hidden')" style="background-color: #94a3b8;">Anulează</button>
+          <button type="submit" class="btn">Publică Oferta</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 InternHub. Proiect SOPM.</p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="student-auth.js"></script>
+  <script>
+    function renderCompanyTable() {
+      const container = document.getElementById('company-applications-table');
+      const apps = getApplications();
+
+      if (apps.length === 0) {
+        container.innerHTML = '<p style="color: var(--muted-text);">Nu există candidaturi înregistrate.</p>';
+        return;
+      }
+
+      let html = `
+        <table class="app-table">
+          <thead>
+            <tr>
+              <th>Internship</th>
+              <th>Data</th>
+              <th>Mesaj Candidat</th>
+              <th>Status Curent</th>
+              <th>Acțiuni</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      apps.forEach((app, idx) => {
+        html += `
+          <tr>
+            <td><strong>${app.internshipTitle}</strong><br><small style="color: var(--muted-text);">${app.company}</small></td>
+            <td>${app.appliedAt}</td>
+            <td style="max-width: 250px;">${app.coverLetter || '<em>Fără mesaj</em>'}</td>
+            <td><span class="status-badge ${app.status === 'Acceptat' ? 'status-accepted' : app.status === 'Respins' ? 'status-rejected' : 'status-pending'}">${app.status}</span></td>
+            <td>
+              <button onclick="changeStatus(${idx}, 'Acceptat')" style="background: #10b981; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; margin-right: 4px;">Acceptă</button>
+              <button onclick="changeStatus(${idx}, 'Respins')" style="background: #ef4444; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer;">Respinge</button>
+            </td>
+          </tr>
+        `;
+      });
+
+      html += '</tbody></table>';
+      container.innerHTML = html;
+    }
+
+    function changeStatus(index, newStatus) {
+      const apps = getApplications();
+      apps[index].status = newStatus;
+      localStorage.setItem('internhub_applications', JSON.stringify(apps));
+      renderCompanyTable();
+    }
+
+    document.getElementById('add-job-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const currentList = getStoredInternships();
+      const newJob = {
+        id: Date.now(),
+        title: document.getElementById('job-title').value,
+        company: document.getElementById('job-company').value,
+        domain: document.getElementById('job-domain').value,
+        city: document.getElementById('job-city').value,
+        type: "Hibrid",
+        salary: document.getElementById('job-salary').value,
+        description: document.getElementById('job-desc').value,
+        requirements: document.getElementById('job-req').value.split(',').map(s => s.trim()).filter(Boolean)
+      };
+
+      currentList.unshift(newJob);
+      localStorage.setItem(STORAGE_INTERNSHIPS_KEY, JSON.stringify(currentList));
+      alert('Internship publicat cu succes! Este vizibil acum în lista generală.');
+      window.location.href = 'internships.html';
+    });
+
+    document.addEventListener('DOMContentLoaded', renderCompanyTable);
+  </script>
+</body>
+</html>

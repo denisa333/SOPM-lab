@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>InternHub - Detalii Ofertă</title>
+  <title>InternHub - Detalii Internship</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="student-style.css">
 </head>
 <body>
 
@@ -19,10 +20,13 @@
   </header>
 
   <main class="container">
-    <a href="internships.html" style="text-decoration: none; color: var(--primary-blue); font-weight: 600; display: inline-block; margin-bottom: 1rem;">&larr; Înapoi la oferte</a>
-    
+    <div style="margin-bottom: 1.5rem;">
+      <a href="internships.html" style="color: var(--primary-blue); text-decoration: none; font-weight: 600;">&larr; Înapoi la toate ofertele</a>
+    </div>
+
+    <!-- Containerul în care script.js injectează detaliile -->
     <div id="internship-details-container">
-      <!-- Generat dinamic prin JS -->
+      <p style="text-align: center; color: var(--muted-text);">Se încarcă detaliile oportunității...</p>
     </div>
   </main>
 
@@ -31,6 +35,8 @@
   </footer>
 
   <script src="data.js"></script>
+  <script src="student-auth.js"></script>
   <script src="script.js"></script>
+  <script src="student-apply.js"></script>
 </body>
 </html>
