@@ -1,5 +1,5 @@
 /**
- * InternHub - Persoana 2: Integrator pentru Aplicare la Internship
+ * 
  */
 
 document.addEventListener('DOMContentLoaded', function() {

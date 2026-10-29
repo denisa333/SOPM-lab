@@ -1,5 +1,5 @@
 /**
- * InternHub - data.js complet și funcțional
+ * 
  */
 
 // 1. Date de pornire locale

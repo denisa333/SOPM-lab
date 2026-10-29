@@ -1,5 +1,5 @@
 /**
- * InternHub - Persoana 2: Modulul de Autentificare & Stocare Student
+ * 
  */
 
 // Chei localStorage
